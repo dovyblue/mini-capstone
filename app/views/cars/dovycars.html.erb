@@ -1,0 +1,8 @@
+<% @cars.each do |car| %>
+  <p><%= car.make %></p>
+  <p><%= car.model %></p>
+  <p><%= car.year %></p>
+  <p><%= car.price %></p>
+  <p><img src=<%= car.image %>></p>
+  <p><%= car.description %></p>
+<% end %>
