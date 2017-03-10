@@ -1,3 +1,5 @@
+<!-- bootstrap -->
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -51,14 +53,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+<!-- end of bootstrap -->
 <!-- from here on is my work -->
 <% @cars.each do |car| %>
-  <h2><%= car.make %> <%= car.model %></h2>
+  <h2><a href="/cars/<%= car.id %>"><%= car.make %> <%= car.model %></h2></a>
   <h4><%= car.year %></h4>
   <p><img src=<%= car.image %>></p>
-  <h2>$<%= car.price %></h2>
-  
-  <p><%= car.description %></p>
-  <p>************************************</p>
+  <p><%= '*' * 100 %></p>
 <% end %>
