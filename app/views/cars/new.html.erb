@@ -1,0 +1,43 @@
+<div class="form">
+  <div class="well"> 
+    <h2>Add new car</h2>
+    <br>
+    <br>
+    <%= form_tag "/cars", method: :post do %>
+      <div class="form-group">
+        <label name="form_make">Enter the make</label>
+        <input type="text" class="form-control" name="form_make" placeholder="make">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_model">Enter the model</label>
+        <input type="text" class="form-control" name="form_model" placeholder="model">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_year">Enter the year</label>
+        <input type="text" class="form-control" name="form_year" placeholder="year">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_price">Enter the price</label>
+        <input type="text" class="form-control" name="form_price" placeholder="price">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_image">upload image</label>
+        <input type="text" class="form-control" name="form_image" placeholder="image">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_description">Description</label>
+        <input type="text" class="form-control" name="form_description" placeholder="description">
+      </div>
+      
+      <button type="submit" class="btn btn-default">Submit</button>
+    <% end %>
+  </div>
+</div>
+
+    
+    

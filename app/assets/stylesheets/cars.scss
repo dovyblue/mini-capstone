@@ -1,5 +1,27 @@
-body{
-  text-align:center;
+div.container-fluid{
+    background-image:url(ep_naturalblack.png);
+    font-family: "Arial Rounded MT Bold","Helvetica Rounded",Arial,sans-serif;
+}
+div.main{
+   text-align:center;
+}
+
+div.message{
+  width:300px;
+  margin-left:50px;
+  margin-top:20px;
+}
+div.form{
+  width:400px;
+  margin-left:200px;
+  margin-top:20px;
+}
+img#image{
+  width:350px;
+  // height:180px;
+}
+button#but{
+  margin-bottom:20px;
 }
 // Place all the styles related to the Cars controller here.
 // They will automatically be included in application.css.

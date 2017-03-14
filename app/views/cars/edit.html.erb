@@ -1,0 +1,48 @@
+
+<div class="form">
+  <div class="well">  
+    <h2>Edit</h2>
+    <br>
+    <br>
+    <%= form_tag "/cars/#{@car.id}", method: :patch do %>
+      <div class="form-group">
+        <label name="form_make">Enter the make</label>
+        <input type="text" class="form-control" name="form_make" value="<%= @car.make %>">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_model">Enter the model</label>
+        <input type="text" class="form-control" name="form_model" value="<%= @car.model %>">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_year">Enter the year</label>
+        <input type="text" class="form-control" name="form_year" value="<%= @car.year %>">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_price">Enter the price</label>
+        <input type="text" class="form-control" name="form_price" value="<%= @car.price %>">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_image">upload image</label>
+        <input type="text" class="form-control" name="form_image" value="<%= @car.image %>">
+      </div>
+      
+      <div class="form-group">
+        <label name="form_description">Description</label>
+        <input type="text" class="form-control" name="form_description" value="<%= @car.description %>">
+      </div>
+      
+      <button type="submit" class="btn btn-default">Submit</button>
+      <br>
+      <br>
+    <% end %>
+    <%=form_tag "/cars/#{@car.id}", method: :delete do %>
+      <button type="delete" class="btn btn-default">Delete</button>
+    <% end %>
+  </div>
+</div>
+
+    
