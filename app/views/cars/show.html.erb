@@ -57,9 +57,16 @@
   <div class="well"> 
     <h2><%= @car.make %> <%= @car.model %></h2>
     <h4><%= @car.year %></h4>
-    <p><img src=<%= @car.image %>></p>
-    <h2>$<%= @car.price %></h2>
+    <p>****</p>
     <p><%= @car.description %></p>
-    <p>ID <%= @car.id %></p>
+    <p><img src=<%= @car.image %>></p>
+    <% if @car.sale_message  == "Discount item!"%>
+    <h4 id="discount"><%= @car.sale_message %></h4>
+    <% else %>
+    <h4><%= @car.sale_message %></h4>
+    <% end %>
+    <h1>$<%= @car.price %></h1>
+    <h4>Tax: $<%= @car.tax %></h4>
+    <h4>Total: $<%= @car.total %></h4>
   </div>
 </div>

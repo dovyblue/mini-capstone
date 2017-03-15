@@ -55,15 +55,18 @@
       </div><!-- /.container-fluid -->
     </nav>
 <!--end of navbar-->
-     
-  <% @cars.each do |car| %>
-  <div class="col-md-4">
-    <div class="well">
-       <h2><%= car.make %> <%= car.model %></h2>
-        <h4><%= car.year %></h4>
-        <p><a href="/cars/<%= car.id %>"><img src=<%= car.image %> id="image"></a></p>
-        
-    </div>
-  </div>  
+  
+  <% @cars.each_slice(3) do |three_cars| %>
+  <div class="row">
+    <%three_cars.each do |car|  %>
+      <div class="col-md-4">
+        <div class="well">
+          <h2><%= car.make %> <%= car.model %></h2>
+          <h4><%= car.year %></h4>
+          <p><a href="/cars/<%= car.id %>"><img src=<%= car.image %>></a></p>
+        </div>
+      </div>
+    <% end %> 
+    </div>     
   <% end %>
 </div> 
