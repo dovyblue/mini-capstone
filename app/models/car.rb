@@ -1,7 +1,7 @@
 class Car < ApplicationRecord
   def sale_message
     return "Discount item!" if price <= 20000
-    return "Everyday value!" if price > 20000
+    return "Everyday value!" else 
   end
 
   def tax
