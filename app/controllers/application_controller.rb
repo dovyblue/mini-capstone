@@ -15,6 +15,16 @@ class ApplicationController < ActionController::Base
   def authenticate_admin!
     redirect_to '/cars' unless current_user && current_user.admin
   end
+
+  def cart_count
+    current_user.carted_products.where(status: "carted").length
+  end
+  helper_method :cart_count
+
+  def random
+    Car.order("RANDOM()").first.id
+  end
+  helper_method :random
 end
 
 

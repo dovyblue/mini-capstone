@@ -2,6 +2,9 @@ div.container-fluid{
     background-image:url(ep_naturalblack.png);
     font-family: "Arial Rounded MT Bold","Helvetica Rounded",Arial,sans-serif;
 }
+#user-name{
+  color:white;
+}
 
 div.main{
    text-align:center;
@@ -28,9 +31,11 @@ img{
   color:red;
 }
 
-.carousel{
-  width:500px;
-  
+.buy-car{
+  margin-left: auto;
+  margin-right: auto;
+  width: 6em
+ 
 }
 // Place all the styles related to the Cars controller here.
 // They will automatically be included in application.css.

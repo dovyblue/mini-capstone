@@ -36,14 +36,8 @@ class CarsController < ApplicationController
   end
 
   def show
-    if params[:rand] 
-      @car = Car.order("RANDOM()").first
-    else
-      input_id = params[:id]
-      @car = Car.find(input_id)
-    end
-    @car.images
-    render 'show.html.erb'
+    input_id = params[:id]
+    @car = Car.find(input_id)
   end
 
   def edit

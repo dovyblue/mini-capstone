@@ -1,24 +1,15 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   def create
-    carted_products = CartedProduct.where(status: "carted").where(user_id: current_user.id)
-    total = 0
-    carted_products.each do |product|
-      total += product.quantity * product.car.price
-    end
-    tax = total * 0.08
+    carted_products = current_user.carted_products.where(status: "carted")
     order = Order.new(
-      user_id: current_user.id,
-      subtotal: total,
-      tax: tax,
-      total: total + tax
+      user_id: current_user.id
     )
     order.save
     carted_products.each do |product|
-      product.status = "purchased"
-      product.order_id = order.id
-      product.save
+      product.update(status: "purchased", order_id: order.id)
     end
+    order.calculate_totals
     redirect_to "/orders/#{order[:id]}"
   end
 
