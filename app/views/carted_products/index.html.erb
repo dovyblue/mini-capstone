@@ -1,0 +1,16 @@
+<div class="well">
+  <%= form_tag '/cars', method: :get do %>
+    <input type="submit" value="Add More To Cart">
+  <% end %>
+
+  <% @carted_products.each do |product| %>
+    <h4><%= product.car.make %> <%= product.car.model %></h4>
+    <p>Quantity: <%= product.quantity %></p>
+    <a data-method="delete" href="/carts/<%= product.id %>">remove</a>
+    <p><%= "*" * 50 %></p>
+  <% end %>
+
+  <%= form_tag '/orders', method: :post do %>
+    <input type="submit" value="Buy Now">
+  <% end %>  
+</div>

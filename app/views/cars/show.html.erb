@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/cars">Home <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Link</a></li>
+            <li><a href="/cars/<%= @car.id %>?rand=">Random Product</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -38,15 +38,15 @@
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
+          <% if current_user && current_user.admin %>
             <li><a href="/cars/<%= @car.id %>/edit">Edit</a></li>
+          <% end %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+              <% if session[:user_id] %>
+                <li><a href="/logout">Log out</a></li>
+              <% else %>
+                <li><a href="/login">Sign in</a></li>
+              <% end %>
               </ul>
             </li>
           </ul>
@@ -54,19 +54,55 @@
       </div><!-- /.container-fluid -->
     </nav>
 <!--end of navbar-->
+
+
+
   <div class="well"> 
     <h2><%= @car.make %> <%= @car.model %></h2>
     <h4><%= @car.year %></h4>
     <p>****</p>
     <p><%= @car.description %></p>
-    <p><img src=<%= @car.image %>></p>
+    <% @car.images.each do |img| %>
+        <img src="<%= img.url %>">
+      <% end %>
     <% if @car.sale_message  == "Discount item!"%>
     <h4 id="discount"><%= @car.sale_message %></h4>
     <% else %>
     <h4><%= @car.sale_message %></h4>
     <% end %>
-    <h1>$<%= @car.price %></h1>
-    <h4>Tax: $<%= @car.tax %></h4>
-    <h4>Total: $<%= @car.total %></h4>
+    <h1>$<%= number_with_delimiter(@car.price, :delimiter => ',') %></h1>
+    <h4>Tax: $<%= number_with_delimiter(@car.tax, :delimiter => ',') %></h4>
+    <h4>Total: $<%= number_with_delimiter(@car.total, :delimiter => ',') %></h4>
+    <br>
+    <h4>Supplier:</h4>
+    <p><%= @car.supplier.name %></p>
+    <% if current_user && current_user.admin %>
+      <%= form_tag "/cars/#{@car.id}/images/new", method: :get do %>
+        <input type="submit" value="create new image">
+      <% end %>
+    <% end %>
+    <br>
+    <h4>Categories:</h4>
+    <% @car.categories.each do |category| %>
+      <p> <%= category.name %></p>
+    <% end %>
   </div>
+  <% if current_user %>
+    <div class="well">
+    <h2>Buy Car</h2>
+    <br>
+      <%= form_tag '/carts', method: :post do %>
+        <div>
+          quantity: <input type="text" name="quantity">
+        </div>
+        <div>
+          <input type="hidden" name="car_id" value="<%= params[:id] %>">
+        </div>
+        <button type="submit" class="btn btn-default">Add to Cart</button>
+      <% end %>
+
+    </div>
+  <% end %>
+  
 </div>
+

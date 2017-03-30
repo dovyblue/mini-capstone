@@ -1,0 +1,19 @@
+<div class="form">
+  <div class="well">
+  <h3>Login</h3>
+  <br>
+    <%= form_tag '/login', method: :post do %>
+      <div class="form-group">
+        <label name="form_model">Email</label>
+        <input type="email" class="form-control" name="email" placeholder="enter email address">
+      </div>
+      <div class="form-group">
+        <label name="form_model">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="enter password">
+      </div>
+      <input type="submit" value="Log In">
+    <% end %>
+    <br>
+    <a href="/signup">Sign Up</a>
+  </div>
+</div>

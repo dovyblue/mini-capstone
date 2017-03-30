@@ -1,12 +1,24 @@
 class CarsController < ApplicationController
-  
+  before_action :authenticate_admin!, except: [:index, :show]
   def index
-    @cars = Car.all
+    @categories = Category.all
+    
+    if params[:sort] && params[:order]
+      @cars = Car.order(params[:sort] => params[:order])
+    elsif params[:discount] 
+      @cars = Car.where("price <= ?", 20000)
+    elsif params[:search]
+      @cars = Car.where("lower(model) LIKE ?", "%#{params[:search]}%")
+    elsif params[:category]
+      @cars = Category.find_by(id: params[:category]).cars
+    else
+      @cars = Car.all
+    end
     render 'index.html.erb'
   end
 
   def new 
-    render 'new.html.erb'
+    @suppliers = Supplier.all
   end
 
   def create
@@ -15,8 +27,8 @@ class CarsController < ApplicationController
       model: params['form_model'],
       year: params['form_year'],
       price: params['form_price'],
-      image: params['form_image'],
-      description: params['form_description']
+      description: params['form_description'],
+      supplier_id: params['supplier']
     )
     @car.save
     flash[:success] = "you have submitted"
@@ -24,8 +36,13 @@ class CarsController < ApplicationController
   end
 
   def show
-    input_id = params[:id]
-    @car = Car.find(input_id)
+    if params[:rand] 
+      @car = Car.order("RANDOM()").first
+    else
+      input_id = params[:id]
+      @car = Car.find(input_id)
+    end
+    @car.images
     render 'show.html.erb'
   end
 
@@ -41,8 +58,8 @@ class CarsController < ApplicationController
       model: params['form_model'],
       year: params['form_year'],
       price: params['form_price'],
-      image: params['form_image'],
-      description: params['form_description']
+      description: params['form_description'],
+      supplier_id: params['form_supplier']
     )
     flash[:info] = "nice update!"
     redirect_to "/cars/#{@car.id}"
@@ -56,3 +73,5 @@ class CarsController < ApplicationController
     redirect_to '/cars'
   end
 end
+
+
