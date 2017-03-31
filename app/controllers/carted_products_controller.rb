@@ -16,12 +16,12 @@ class CartedProductsController < ApplicationController
       quantity: params[:quantity].to_i,
       status: "carted"
     )
-    if carted_product.quantity == 0
-      carted_product.quantity = 1
+    if carted_product.save
+      redirect_to '/carts'
+    else
+      flash[:warning] = "You must enter a quantity"
+      redirect_to "/cars/#{params[:car_id]}"
     end
-    carted_product.save
-    
-    redirect_to '/carts'
   end
 
   def destroy

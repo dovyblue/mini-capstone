@@ -48,6 +48,14 @@
       <%= form_tag '/carts', method: :post do %>
         <div class="buy-car">
           <div class="form-group">
+            <% if @car.errors.any? %>
+              <div id="error_explanation">
+                <h4>An error prohibited this car from being saved:</h4>
+                <ul>
+                  <li><%= @car.errors[0].full_messages %></li>
+                </ul>
+              </div>
+            <% end %>
             <label>Quantity</label>
             <input type="text" class="form-control" name="quantity">
           </div>

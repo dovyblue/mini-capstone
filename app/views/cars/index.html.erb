@@ -1,15 +1,14 @@
 <div class="main">
-  
-  
-  
   <% @cars.each_slice(3) do |three_cars| %>
   <div class="row">
     <%three_cars.each do |car|  %>
       <div class="col-md-4">
         <div class="well">
-          <h2><%= car.make %> <%= car.model %></h2>
+          <a href="/cars/<%= car.id %>"><h2><%= car.make %> <%= car.model %></a></h2>
           <h4><%= car.year %></h4>
-          <p><a href="/cars/<%= car.id %>"><img src="<%= car.images.first.url %>"></a></p>
+          <% if car.images[0] %>
+            <p><a href="/cars/<%= car.id %>"><img src="<%= car.images.first.url %>"></a></p>
+          <% end %>
           <h3>$<%= number_with_delimiter(car.price, :delimiter => ',') %></h3>
         </div>
       </div>

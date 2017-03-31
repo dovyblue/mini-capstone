@@ -6,6 +6,15 @@ class Car < ApplicationRecord
   has_many :carted_products
   has_many :users, through: :carted_products
   has_many :orders, through: :carted_products
+
+  validates :model, presence: true
+  validates :model, uniqueness: true
+  validates :price, presence: true
+  validates :price, numericality: { only_integer: true }
+  validates :description, presence: true
+  validates :description, length: { maximum: 500 }
+  
+
   def sale_message
     return "Discount item!" if price <= 20000
     return "Everyday value!" else 

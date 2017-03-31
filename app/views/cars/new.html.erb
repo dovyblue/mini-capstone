@@ -3,44 +3,19 @@
     <h2>Add new car</h2>
     <br>
     <br>
+    <% if @car.errors.any? %>
+      <div id="error_explanation">
+        <h4><%= pluralize(@car.errors.count, "error") %> prohibited this car from being saved:</h4>
+     
+        <ul>
+        <% @car.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
     <%= form_tag "/cars", method: :post do %>
-      <div class="form-group">
-        <label name="form_make">Enter the make</label>
-        <input type="text" class="form-control" name="form_make" placeholder="make">
-      </div>
-      
-      <div class="form-group">
-        <label name="form_model">Enter the model</label>
-        <input type="text" class="form-control" name="form_model" placeholder="model">
-      </div>
-      
-      <div class="form-group">
-        <label name="form_year">Enter the year</label>
-        <input type="text" class="form-control" name="form_year" placeholder="year">
-      </div>
-      
-      <div class="form-group">
-        <label name="form_price">Enter the price</label>
-        <input type="text" class="form-control" name="form_price" placeholder="price">
-      </div>
-      
-      
-      <div class="form-group">
-        <label name="form_description">Description</label>
-        <input type="text" class="form-control" name="form_description" placeholder="description">
-      </div>
-      
-      <div class="form-group">
-        <label>Choose supplier</label>
-        <select name="supplier">
-        <option>select</option>
-          <% @suppliers.each do |sup| %>
-            <option value="<%= sup.id %>"><%= sup.name %> </option>
-          <% end %>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-default">Submit</button>
+      <%= render 'form.html.erb' %>
     <% end %>
   </div>
 </div>

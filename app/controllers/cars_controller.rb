@@ -19,6 +19,7 @@ class CarsController < ApplicationController
 
   def new 
     @suppliers = Supplier.all
+    @car = Car.new
   end
 
   def create
@@ -30,9 +31,13 @@ class CarsController < ApplicationController
       description: params['form_description'],
       supplier_id: params['supplier']
     )
-    @car.save
-    flash[:success] = "you have submitted"
-    redirect_to "/cars/#{@car.id}"
+    if @car.save
+      flash[:success] = "you have submitted"
+      redirect_to "/cars/#{@car.id}"
+    else
+      @suppliers = Supplier.all
+      render 'new.html.erb'
+    end
   end
 
   def show
@@ -42,7 +47,7 @@ class CarsController < ApplicationController
 
   def edit
     @car = Car.find(params[:id])
-    render 'edit.html.erb'
+    @suppliers = Supplier.all
   end
 
   def update
@@ -53,10 +58,15 @@ class CarsController < ApplicationController
       year: params['form_year'],
       price: params['form_price'],
       description: params['form_description'],
-      supplier_id: params['form_supplier']
+      supplier_id: params['supplier']
     )
-    flash[:info] = "nice update!"
-    redirect_to "/cars/#{@car.id}"
+    if @car.save
+      flash[:info] = "nice update!"
+      redirect_to "/cars/#{@car.id}"
+    else
+      @suppliers = Supplier.all
+      render 'edit.html.erb'
+    end
   end
 
   def destroy
